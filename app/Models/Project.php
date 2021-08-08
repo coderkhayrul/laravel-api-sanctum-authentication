@@ -16,5 +16,5 @@ class Project extends Model
         'student_id', 'name', 'description', 'duration'
     ];
 
-    protected $timestamps = false;
+    public $timestamps = false;
 }
