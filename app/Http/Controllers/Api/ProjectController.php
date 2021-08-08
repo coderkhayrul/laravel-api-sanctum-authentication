@@ -52,6 +52,24 @@ class ProjectController extends Controller
     // SINGLE PROJECT API
     public function singleProject($id)
     {
+        $student_id = auth()->user()->id;
+
+        if (Project::where(['id' => $id, 'student_id' => $student_id])->exists()) {
+
+            $project_detail = Project::where(['id' => $id, 'student_id' => $student_id])->first();
+            // Send Response
+            return response()->json([
+                'status' => '1',
+                'message' => 'Project Show',
+                'data' => $project_detail
+            ], 200);
+        } else {
+            // Send Response
+            return response()->json([
+                'status' => '0',
+                'message' => 'Project Not Found',
+            ], 404);
+        }
     }
 
     // DELETE PROJECT API
