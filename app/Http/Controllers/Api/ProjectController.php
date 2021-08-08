@@ -37,6 +37,16 @@ class ProjectController extends Controller
     // LIST PROJECT API
     public function listProject()
     {
+        $student_id = auth()->user()->id;
+
+        $porjects = Project::where('student_id', $student_id)->get();
+
+        // Send Response
+        return response()->json([
+            'status' => '1',
+            'message' => 'Project Project',
+            'data' => $porjects
+        ], 200);
     }
 
     // SINGLE PROJECT API
