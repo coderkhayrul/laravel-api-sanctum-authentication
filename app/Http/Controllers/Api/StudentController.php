@@ -74,8 +74,13 @@ class StudentController extends Controller
     }
 
     // STUDENT PROFILE API
-    public function profile($id)
+    public function profile()
     {
+        return response()->json([
+            'status' => '1',
+            'message' => 'Student Profile information',
+            'data' => auth()->user()
+        ]);
     }
 
     // STUDENT LOGOUT API
