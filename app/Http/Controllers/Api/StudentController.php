@@ -37,6 +37,40 @@ class StudentController extends Controller
     // STUDENT LOGIN API
     public function login(Request $request)
     {
+        // Validation Request
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        // Check Student
+        $student = Student::where('email', '=', $request->email)->first();
+
+        if (isset($student->id)) {
+
+            if (Hash::check($request->password, $student->password)) {
+
+                // Create a Token
+                $token = $student->createToken("auth_token")->plainTextToken;
+
+                // Send A Response
+                return  response()->json([
+                    'status' => '1',
+                    'message' => 'Student Login Successfully',
+                    'access_token' => $token
+                ]);
+            } else {
+                return response()->json([
+                    'status' => '0',
+                    'message' => 'Password is incorrect',
+                ], 404);
+            }
+        } else {
+            return response()->json([
+                'status' => '0',
+                'message' => 'Student Not Found',
+            ], 404);
+        }
     }
 
     // STUDENT PROFILE API
