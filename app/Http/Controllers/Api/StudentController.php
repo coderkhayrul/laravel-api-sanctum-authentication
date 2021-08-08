@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -84,7 +85,13 @@ class StudentController extends Controller
     }
 
     // STUDENT LOGOUT API
-    public function logout($id)
+    public function logout()
     {
+        auth()->user()->tokens()->delete();
+
+        return response()->json([
+            'status' => '1',
+            'message' => 'Student Logout Successfully'
+        ]);
     }
 }
