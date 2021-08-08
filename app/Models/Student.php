@@ -17,5 +17,5 @@ class Student extends Model
         'name', 'email', 'password', 'phone_no'
     ];
 
-    protected $timestamps = false;
+    public $timestamps = false;
 }
